@@ -1,0 +1,104 @@
+<!--
+ * @Author: yy
+ * @Date: 2023-03-17 16:04:58
+ * @LastEditors: yy
+ * @LastEditTime: 2023-03-18 14:04:54
+ * @Description: 
+-->
+<!DOCTYPE html>
+<html>
+
+<!-- Mirrored from minesweeper.apps.minigame.vip/minigame-index.html?mn_config=https://indigo.minigame.vip/v1/api/channel/indigo/main/game/minesweeper/config&ts=1690605080244 by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 29 Jul 2023 04:37:02 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8">
+
+  <title>Minesweeper</title>
+
+  <!--http://www.html5rocks.com/en/mobile/mobifying/-->
+  <meta name="viewport"
+        content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1,minimal-ui=true"/>
+
+  <!--https://developer.apple.com/library/safari/documentation/AppleApplications/Reference/SafariHTMLRef/Articles/MetaTags.html-->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="format-detection" content="telephone=no">
+
+  <!-- force webkit on 360 -->
+  <meta name="renderer" content="webkit"/>
+  <meta name="force-rendering" content="webkit"/>
+  <!-- force edge on IE -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+  <meta name="msapplication-tap-highlight" content="no">
+
+  <!-- force full screen on some browser -->
+  <meta name="full-screen" content="yes"/>
+  <meta name="x5-fullscreen" content="true"/>
+  <meta name="360-fullscreen" content="true"/>
+
+  <!--fix fireball/issues/3568 -->
+  <!--<meta name="browsermode" content="application">-->
+  <meta name="x5-page-mode" content="app">
+
+  <!--<link rel="apple-touch-icon" href=".png" />-->
+  <!--<link rel="apple-touch-icon-precomposed" href=".png" />-->
+
+  <link rel="stylesheet" type="text/css" href="style.css"/>
+
+</head>
+<body>
+  <div id="GameDiv">
+      <div id="Cocos3dGameContainer">
+        <canvas id="GameCanvas" oncontextmenu="event.preventDefault()" tabindex="0"></canvas>
+      </div>
+  </div>
+  
+  <!-- Polyfills bundle. -->
+  <script src="src/polyfills.bundle.js" charset="utf-8"> </script>
+
+  <!-- SystemJS support. -->
+  <script src="src/system.bundle.js" charset="utf-8"> </script>
+
+  <!-- Import map -->
+  <script src="src/import-map.json" type="systemjs-importmap" charset="utf-8"> </script>
+  <script src="index.js"> </script>
+
+  <script src="sdk.minigame.vip/js/1.1/minigame5da1.js?t=1680074594" charset="utf-8"></script>
+
+  <script>
+    /** 提前初始化微游SDK，再启动微游SDK, 最后启动游戏 */
+			function bootFromWeiYou() {
+				minigame.initializeAsync().then((result) => {
+					console.log("微游initializeAsync success")
+					// 记录启动来源
+					minigame.getEntryPointAsync().then(function (entry) {
+						console.info('Entry Point: ', entry);
+					})
+
+					// 记录会话类型
+					const contextType = minigame.context.getType();
+					console.info("Context Type: ", contextType);
+
+					// [显示平台加载界面]直接设置微游进度条进度为100
+					minigame.setLoadingProgress(100);
+
+					// [关闭平台加载界面]微游要的莫名其妙的代码,没效果
+					minigame.startGameAsync().then((result) => {
+						console.log("微游startGameAsync success");
+						// 启动游戏
+						// System.import('index.js').catch(function(err) { console.error(err); })
+					}).catch((err) => {
+						console.log("微游startGameAsync fail: ", err);
+					});
+				}).catch((err) => {
+					console.log("微游initializeAsync fail: ", err);
+				});
+			}
+      
+      bootFromWeiYou();
+  </script>
+
+</body>
+
+<!-- Mirrored from minesweeper.apps.minigame.vip/minigame-index.html?mn_config=https://indigo.minigame.vip/v1/api/channel/indigo/main/game/minesweeper/config&ts=1690605080244 by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 29 Jul 2023 04:37:02 GMT -->
+</html>
